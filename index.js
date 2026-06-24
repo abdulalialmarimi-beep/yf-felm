@@ -1,6 +1,3 @@
-import { WebSocket } from "ws";
-global.WebSocket = WebSocket;
-
 import { Client, MessageActionRow, MessageButton } from "discord.js-selfbot-v13";
 import { Streamer, prepareStream, playStream, Utils } from "@dank074/discord-video-stream";
 import dotenv from "dotenv";
@@ -52,7 +49,7 @@ async function resolveVideoUrl(url) {
   if (!isYoutubeUrl(url)) return url;
   try {
     const { stdout } = await execAsync(
-      `yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --get-url "${url}"`
+      `yt-dlp -f "best[ext=mp4]/best" --get-url "${url}"`
     );
     const lines = stdout.trim().split("\n").filter(Boolean);
     return lines[0];
